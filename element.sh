@@ -36,6 +36,7 @@ PRINT_ELEMENT() {
 }
 
 FIX_DB() {
+  
   # You should rename the weight column to atomic_mass
   RENAME_PROPERTIES_WEIGHT=$($PSQL "ALTER TABLE properties RENAME COLUMN weight TO atomic_mass;")
   echo "RENAME_PROPERTIES_WEIGHT                    : $RENAME_PROPERTIES_WEIGHT"
@@ -67,6 +68,7 @@ FIX_DB() {
   # You should set the atomic_number column from the properties table as a foreign key that references the column of the same name in the elements table
   ALTER_PROPERTIES_ATOMIC_NUMBER_FOREIGN_KEY=$($PSQL "ALTER TABLE properties ADD FOREIGN KEY (atomic_number) REFERENCES elements(atomic_number);")
   echo "ALTER_PROPERTIES_ATOMIC_NUMBER_FOREIGN_KEY  : $ALTER_PROPERTIES_ATOMIC_NUMBER_FOREIGN_KEY"
+
 
   # You should create a types table that will store the three types of elements
   CREATE_TBL_TYPES=$($PSQL "CREATE TABLE types();")
@@ -125,6 +127,7 @@ FIX_DB() {
   echo "DELETE_ELEMENTS_1000                        : $DELETE_ELEMENTS_1000"
   
   # Your properties table should not have a type column
+
   DELETE_COLUMN_PROPERTIES_TYPE=$($PSQL "ALTER TABLE properties DROP COLUMN type;")
   echo "DELETE_COLUMN_PROPERTIES_TYPE               : $DELETE_COLUMN_PROPERTIES_TYPE"
 }
